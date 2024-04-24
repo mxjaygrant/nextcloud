@@ -1,1 +1,7 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"functions.css"}
+{
+"version": 3,
+"mappings": ";AAAA;;;;;;;;;;;;;;;;;;;;GAoBG;AAEH;;GAEG;AA0BH;;;;;;;;;;GAUG",
+"sources": ["functions.scss"],
+"names": [],
+"file": "functions.css"
+}

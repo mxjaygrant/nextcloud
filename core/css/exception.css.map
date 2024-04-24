@@ -1,1 +1,7 @@
-{"version":3,"sourceRoot":"","sources":["exception.scss"],"names":[],"mappings":"AAsBA,GACC,qBAGD,IACC,qBACA","file":"exception.css"}
+{
+"version": 3,
+"mappings": "AAAA;;;;;;;;;;;;;;;;;;;;GAoBG;AAEH,EAAG;EACF,SAAS,EAAE,UAAU;;AAGtB,GAAI;EACH,WAAW,EAAE,QAAQ;EACrB,SAAS,EAAE,UAAU",
+"sources": ["exception.scss"],
+"names": [],
+"file": "exception.css"
+}

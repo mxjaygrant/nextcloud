@@ -61,7 +61,7 @@
 	top: 0;
 	width: 100%;
 	z-index: 2000;
-	height: variables.$header-height;
+	height: var(--header-height);
 	box-sizing: border-box;
 	justify-content: space-between;
 }
@@ -87,7 +87,7 @@
 
 @mixin header-menu-height() {
 	min-height: calc(44px * 1.5); // show at least 1.5 entries
-	max-height: calc(100vh - #{variables.$header-height} - 8px);
+	max-height: calc(100vh - var(--header-height) - 8px);
 }
 
 #header {
@@ -104,7 +104,7 @@
 		max-width: 350px;
 		@include header-menu-height();
 		right: 8px; // relative to parent
-		top: variables.$header-height;
+		top: var(--header-height);
 		margin: 0;
 		overflow-y: auto;
 
@@ -190,7 +190,7 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				width: variables.$header-height;
+				width: var(--header-height);
 				height: 44px;
 				cursor: pointer;
 				opacity: 0.85;
@@ -264,7 +264,7 @@
 	gap: 11px;
 
 	&:focus-within {
-		top: variables.$header-height;
+		top: var(--header-height);
 	}
 }
 

@@ -1,4 +1,5 @@
 /**
+ * @copyright Copyright (c) 2024, Jay Grant <dev@jaygrant.dev>
  * @copyright Copyright (c) 2016-2017, John Molakvoæ <skjnldsv@protonmail.com>
  * @copyright Copyright (c) 2016, Julius Haertl <jus@bitgrid.net>
  * @copyright Copyright (c) 2016, Morris Jobke <hey@morrisjobke.de>
@@ -29,7 +30,7 @@
 	--body-height: calc(100% - env(safe-area-inset-bottom) - 50px - var(--body-container-margin));
 }
 
-@media screen and (max-width: variables.$breakpoint-mobile) {
+@media screen and (max-width: 1024px) { //REMOVED: CSS variables not allowed in media queries 
 	:root {
 		--body-container-margin: 0px;
 		--body-container-radius: 0px;
@@ -138,7 +139,7 @@ kbd {
 	// Ensure the maxcontrast color is set for the background
 	--color-text-maxcontrast: var(--color-text-maxcontrast-background-blur, var(--color-main-text));
 
-	width: variables.$navigation-width;
+	width: var(--navigation-width);
 	z-index: 500;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -471,7 +472,7 @@ kbd {
 			margin: 0;
 			padding: 0;
 			background: none;
-			@include icon-color('triangle-s', 'actions', variables.$color-black, 1, true);
+			@include icon-color('triangle-s', 'actions', --color-black, 1, true);
 			background-size: 16px;
 			background-repeat: no-repeat;
 			background-position: center;
@@ -486,7 +487,7 @@ kbd {
 			transform: rotate(-90deg);
 			z-index: 105; // above a, under button
 			border-radius: 50%;
-			transition: opacity variables.$animation-quick ease-in-out;
+			transition: opacity var(--animation-quick) ease-in-out;
 
 
 		}
@@ -539,7 +540,7 @@ kbd {
 		.app-navigation-entry-utils-menu-button {
 			/* Prevent bg img override if an icon class is set */
 			button:not([class^='icon-']):not([class*=' icon-']) {
-				@include icon-color('more', 'actions', variables.$color-black, 1, true);
+				@include icon-color('more', 'actions', var(--color-black), 1, true);
 			}
 			&:hover button,
 			&:focus button {
@@ -627,7 +628,7 @@ kbd {
 	.app-navigation-entry-deleted {
 		display: inline-flex;
 		padding-left: 44px;
-		transform: translateX(#{variables.$navigation-width});
+		transform: translateX(var(--navigation-width));
 		.app-navigation-entry-deleted-description {
 			position: relative;
 			white-space: nowrap;
@@ -701,7 +702,7 @@ kbd {
 	}
 }
 
-@media only screen and (max-width: variables.$breakpoint-mobile) {
+@media only screen and (max-width: 1024px) { //CSS No variables in media queries
 	#content {
 		border-top-left-radius: var(--border-radius-large);
 		border-top-right-radius: var(--border-radius-large);
@@ -722,7 +723,10 @@ kbd {
  * Just before the mobile breakpoint we have variables.$breakpoint-mobile (1024px) - variables.$navigation-width
  * -> 468px. In that case we want 200px for the list and 268px for the content
  */
-$min-content-width: variables.$breakpoint-mobile - variables.$navigation-width - variables.$list-min-width;
+
+ :root {
+--min-content-width: var(--breakpoint-mobile) - var(--navigation-width) - var(--list-min-width);
+ }
 
 #app-content {
 	z-index: 1000;
@@ -749,7 +753,7 @@ $min-content-width: variables.$breakpoint-mobile - variables.$navigation-width -
 		/* CONTENT DETAILS AFTER LIST*/
 		.app-content-details {
 			/* grow full width */
-			flex: 1 1 $min-content-width;
+			flex: 1 1 var(--min-content-width);
 			#app-navigation-toggle-back {
 				display: none;
 			}
@@ -768,18 +772,18 @@ $min-content-width: variables.$breakpoint-mobile - variables.$navigation-width -
 */
 #app-sidebar {
 	width: 27vw;
-	min-width: variables.$sidebar-min-width;
-	max-width: variables.$sidebar-max-width;
+	min-width: var(--sidebar-min-width);
+	max-width: var(--sidebar-min-width);
 	display: block;
 	position: -webkit-sticky;
 	position: sticky;
-	top: variables.$header-height;
+	top: var(--header-height);
 	right:0;
 	overflow-y: auto;
 	overflow-x: hidden;
 	z-index: 1500;
 	opacity: 0.7px;
-	height: calc(100vh - #{variables.$header-height});
+	height: calc(100vh - var(--header-height));
 	background: var(--color-main-background);
 	border-left: 1px solid var(--color-border);
 	flex-shrink: 0;
@@ -997,9 +1001,11 @@ $min-content-width: variables.$breakpoint-mobile - variables.$navigation-width -
 }
 
 /* POPOVER MENU ------------------------------------------------------------ */
-$popoveritem-height: 44px;
-$popovericon-size: 16px;
-$outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
+:root {
+--popoveritem-height: 44px;
+--popovericon-size: 16px;
+--outter-margin: calc((var(--popoveritem-height) - var(--popovericon-size)) / 2);
+}
 
 .v-popper__inner div.open > ul {
 	> li > a > span.action-link__icon,
@@ -1093,7 +1099,7 @@ $outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
 		> a,
 		> .menuitem {
 			cursor: pointer;
-			line-height: $popoveritem-height;
+			line-height: var(--popoveritem-height);
 			border: 0;
 			border-radius: var(--border-radius-large);
 			background-color: transparent;
@@ -1113,14 +1119,14 @@ $outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
 			&[class*=' icon-'] {
 				min-width: 0; /* Overwrite icons*/
 				min-height: 0;
-				background-position: #{math.div($popoveritem-height - $popovericon-size, 2)} center;
-				background-size: $popovericon-size;
+				background-position: calc((var(--popoveritem-height) - var(--popovericon-size)) / 2) center;
+				background-size: var(--popovericon-size);
 			}
 			span[class^='icon-'],
 			span[class*=' icon-'] {
 				/* Keep padding to define the width to
 				 assure correct position of a possible text */
-				padding: #{math.div($popoveritem-height, 2)} 0 #{math.div($popoveritem-height, 2)} $popoveritem-height;
+				padding: calc(var(--popoveritem-height)/2) 0 calc(var(--popoveritem-height)/2) var(--popoveritem-height);
 			}
 			// If no icons set, force left margin to align
 			&:not([class^='icon-']):not([class*='icon-']) {
@@ -1128,13 +1134,13 @@ $outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
 				> input,
 				> form {
 					&:not([class^='icon-']):not([class*='icon-']):first-child {
-						margin-left: $popoveritem-height;
+						margin-left: var(--popoveritem-height);
 					}
 				}
 			}
 			&[class^='icon-'],
 			&[class*=' icon-'] {
-				padding: 0 #{math.div($popoveritem-height - $popovericon-size, 2)} 0 $popoveritem-height !important;
+				padding: 0 calc(var(--popoveritem-height)/2) 0 var(--popoveritem-height) !important;
 			}
 			&:hover,
 			&:focus {
@@ -1168,13 +1174,13 @@ $outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
 			}
 			/* Add padding if contains icon+text */
 			&:not(:empty) {
-				padding-right: $outter-margin !important;
+				padding-right: var(--outter-margin) !important;
 			}
 			/* DEPRECATED! old img in popover fallback
 			 * TODO: to remove */
 			> img {
-				width: $popovericon-size;
-				padding: #{math.div($popoveritem-height - $popovericon-size, 2)};
+				width: var(--popovericon-size);
+				padding: calc(var(--popoveritem-height)/2);
 			}
 			/* checkbox/radio fixes */
 			> input.radio + label,
@@ -1208,8 +1214,8 @@ $outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
 			}
 			/* Inputs inside popover supports text, submit & reset */
 			input {
-				min-width: $popoveritem-height;
-				max-height: #{$popoveritem-height - 4px}; /* twice the element margin-y */
+				min-width: var(--popoveritem-height);
+				max-height: calc(var(--popoveritem-height)-4); /* twice the element margin-y */
 				margin: 2px 0;
 				flex: 1 1 auto;
 				// space between inline inputs
@@ -1223,7 +1229,7 @@ $outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
 			&:first-of-type {
 				> button, > a, > .menuitem {
 					> form, > input {
-						margin-top: $outter-margin - 2px; // minus the input margin
+						margin-top: var(--outter-margin) - 2px; // minus the input margin
 					}
 				}
 			}
@@ -1242,21 +1248,6 @@ $outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
 			}
 		}
 
-	}
-}
-
-.popovermenu {
-	li {
-		> button,
-		> a,
-		> .menuitem {
-			/* DEPRECATED! old img in popover fallback
-			* TODO: to remove */
-			> img {
-				width: $popoveritem-height;
-				height: $popoveritem-height;
-			}
-		}
 	}
 }
 
@@ -1284,9 +1275,9 @@ $outter-margin: math.div($popoveritem-height - $popovericon-size, 2);
 	max-height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
-	flex: 1 1 variables.$list-min-width;
-	min-width: variables.$list-min-width;
-	max-width: variables.$list-max-width;
+	flex: 1 1 var(--list-min-width);
+	min-width: var(--list-min-width);
+	max-width: var(--list-min-width);
 
 	/* Default item */
 	.app-content-list-item {

@@ -1,6 +1,6 @@
 @use 'variables';
 
-@media only screen and (width < variables.$breakpoint-mobile) {
+@media only screen and (width < 1024px) { //SCSS Removal: no variables in media queries
 
 	/* position share dropdown */
 	#dropdown {
@@ -22,7 +22,7 @@
 
 	/* APP SIDEBAR TOGGLE and SWIPE ----------------------------------------------*/
 	#app-navigation:not(.vue) {
-		transform: translateX(-#{variables.$navigation-width});
+		transform: translateX(var(--navigation-width));
 		position: fixed;
 		height: var(--body-height);
 	}
@@ -68,7 +68,7 @@
 		#app-navigation-toggle-back {
 			position: fixed;
 			display: inline-block !important;
-			top: variables.$header-height;
+			top: var(--header-height);
 			left: 0;
 			width: 44px;
 			height: 44px;
@@ -121,7 +121,7 @@
 		display: none;
 	}
 	#body-settings .files-controls {
-		min-width: variables.$breakpoint-mobile !important;
+		min-width: var(--breakpoint-mobile) !important;
 	}
 
 	/* end of media query */

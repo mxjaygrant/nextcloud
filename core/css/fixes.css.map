@@ -1,1 +1,7 @@
-{"version":3,"sourceRoot":"","sources":["fixes.scss"],"names":[],"mappings":"AAGA,mBACC","file":"fixes.css"}
+{
+"version": 3,
+"mappings": "AAAA,sCAAsC;AAEtC,uCAAuC;AACvC,kBAAmB;EAClB,MAAM,EAAE,CAAC",
+"sources": ["fixes.scss"],
+"names": [],
+"file": "fixes.css"
+}
